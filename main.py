@@ -4,7 +4,7 @@ import time
 pygame.init()
 
 # How many digits do you want to calculate?
-digits = 1
+digits = 6
 timestep = 10000
 
 # Display
@@ -89,6 +89,9 @@ if digits >= 8 :
 while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            run = False
+            break
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
             run = False
             break
     for i in range(timestep) :
