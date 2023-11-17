@@ -4,7 +4,8 @@ import time
 pygame.init()
 
 # How many digits do you want to calculate?
-digits = 6
+digits = 1
+totalCollision = 0
 timestep = 10000
 
 # Display
@@ -17,9 +18,10 @@ textColor = "white"
 pi = font.render('0', True, "white")
 nrCol = font.render('# Collisions: ', True, "white")
 s = '1' + '0' * (2*(digits - 1)%3) + ',000' * int(2*(digits - 1)/3) + ' kg'
+restartButton = pygame.Rect(100,100,200,200)
 
 # Enviroment
-wallWidth = 160
+wallWidth = width / 10
 wallHeight = height
 WALL = pygame.transform.scale(pygame.image.load('images/border.png'), (60,660))
 wall = pygame.Rect(0,0,wallWidth, wallHeight)
@@ -47,6 +49,7 @@ def draw():
     WIN.blit(BG,(0,0))
     WIN.blit(LINE,(wallWidth, wallHeight - 140))
     WIN.blit(WALL,(wallWidth - 60,100))
+    pygame.draw.rect(WIN, "red", restartButton)
     pi = font.render(str(totalCollision), True, textColor)
     nrCol = font.render('# Collisions:', True, textColor)
     WIN.blit(nrCol,(600,20))
@@ -82,21 +85,28 @@ def collision():
         v1 = -v1
 
 # Main
-run = True
-totalCollision = 0
-if digits >= 8 :
-    timestep = timestep * 10
-while run:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-            break
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
-            run = False
-            break
-    for i in range(timestep) :
-        move()
-        collision()
-    draw()
-    pygame.display.update()  
-pygame.quit()
+def main():
+    run = True
+    totalCollision = 0
+    global timestep
+    if digits >= 8 :
+        timestep = timestep * 10
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                break
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
+                run = False
+                break
+            if event.type == pygame.MOUSEBUTTONDOWN and restartButton.collidepoint(pygame.mouse.get_pos()):  
+                print("halo")
+        for i in range(timestep) :
+            move()
+            collision()
+        draw()
+        pygame.display.update()  
+    pygame.quit()
+
+if __name__ == "__main__" :
+    main()
