@@ -1,8 +1,8 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-const timeSteps = 10000;
-const digits = 2;
+let timeSteps = 1000;
+let digits = 3;
 let countCollisions = 0;
 
 class Block{
@@ -65,6 +65,15 @@ function background(){
     ctx.fillStyle = 'black';
     ctx.fillRect(0,0,canvas.clientWidth,canvas.height);
     ctx.drawImage(document.getElementById("border"),120,100);
+    ctx.drawImage(document.getElementById("borderdown"),160, canvas.height - 140);
+    ctx.drawImage(document.getElementById("borderdown"),700, canvas.height - 140);
+    ctx.drawImage(document.getElementById("borderdown"),1100, canvas.height - 140);
+    ctx.fillStyle = 'white';
+    ctx.font = "48px Consolas";
+    let str = countCollisions.toString();
+    str = "# Collisions:  " + str;
+    let strlength = ctx.measureText(str).width;
+    ctx.fillText(str, canvas.clientWidth/2 - strlength/2, 75);
 }
 
 function draw(){
@@ -76,12 +85,14 @@ function draw(){
             smallBlock.v = v1;
             bigBlock.v = v2;
             smallBlock.tx = bigBlock.x;
-            clack.cloneNode().play();
+           //clack.cloneNode().play();
+            countCollisions++;
         }
         if(smallBlock.hitBoundary(wall)){
             smallBlock.reverse();
-            clack.load();
-            clack.cloneNode().play();
+            //clack.cloneNode().play();
+            countCollisions++;
+            console.log()
         }
         if(bigBlock.hitBoundary(wall + smallBlock.dim)){
         }
@@ -90,10 +101,11 @@ function draw(){
     }
     smallBlock.show(smallBlockImg, wall);
     bigBlock.show(bigBlockImg, wall + smallBlock.dim);
+    console.log(countCollisions);
     //bigBlock.show();
 }
 function main(){
-    //clack.playbackRate = 2;
+    
     preload();
     setInterval(draw,1000/60);
 }
