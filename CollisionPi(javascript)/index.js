@@ -1,8 +1,8 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let timeSteps = 1000;
-let digits = 3;
+let timeSteps = 100000;
+let digits = 7;
 let countCollisions = 0;
 
 class Block{
@@ -44,11 +44,32 @@ class Block{
     }
 }
 
+class Button{
+    constructor(x,y,z,t,img){
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.t = t;
+        this.img = img;
+    }
+    create(){
+        ctx.fillRect(this.x,this.y,this.z,this.t);
+    }
+    show(){
+        ctx.drawImage(this.img,this.x,this.y);
+    }
+}
+
 let smallBlockImg;
 let bigBlockImg;
 let smallBlock;
 let bigBlock;
 let clack;
+let restartButton;
+let startButton;
+let stopButton;
+let upAButton;
+let downAButton;
 const wall = 160;
 
 
@@ -58,7 +79,8 @@ function preload(){
     bigBlock = new Block(1100,560,200,Math.pow(100,digits-1),-2/timeSteps);
     bigBlockImg = document.getElementById("bigSquare");
     clack = document.getElementById('clack');
-    
+    restartButton = new Button(100,100,200,200,document.getElementById('restartButton'));
+    restartButton.create();
 }
 
 function background(){
@@ -68,6 +90,7 @@ function background(){
     ctx.drawImage(document.getElementById("borderdown"),160, canvas.height - 140);
     ctx.drawImage(document.getElementById("borderdown"),700, canvas.height - 140);
     ctx.drawImage(document.getElementById("borderdown"),1100, canvas.height - 140);
+    //restartButton.show();
     ctx.fillStyle = 'white';
     ctx.font = "48px Consolas";
     let str = countCollisions.toString();
