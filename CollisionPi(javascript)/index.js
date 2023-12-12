@@ -44,32 +44,32 @@ class Block{
     }
 }
 
-class Button{
-    constructor(x,y,z,t,img){
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.t = t;
-        this.img = img;
-    }
-    create(){
-        ctx.fillRect(this.x,this.y,this.z,this.t);
-    }
-    show(){
-        ctx.drawImage(this.img,this.x,this.y);
-    }
-}
+// class Button{
+//     constructor(x,y,z,t,img){
+//         this.x = x;
+//         this.y = y;
+//         this.z = z;
+//         this.t = t;
+//         this.img = img;
+//     }
+//     create(){
+//         ctx.fillRect(this.x,this.y,this.z,this.t);
+//     }
+//     show(){
+//         ctx.drawImage(this.img,this.x,this.y);
+//     }
+// }
 
 let smallBlockImg;
 let bigBlockImg;
 let smallBlock;
 let bigBlock;
 let clack;
-let restartButton;
-let startButton;
-let stopButton;
-let upAButton;
-let downAButton;
+// let restartButton;
+// let startButton;
+// let stopButton;
+// let upAButton;
+// let downAButton;
 const wall = 160;
 
 
@@ -79,8 +79,8 @@ function preload(){
     bigBlock = new Block(1100,560,200,Math.pow(100,digits-1),-2/timeSteps);
     bigBlockImg = document.getElementById("bigSquare");
     clack = document.getElementById('clack');
-    restartButton = new Button(100,100,200,200,document.getElementById('restartButton'));
-    restartButton.create();
+    // restartButton = new Button(100,100,200,200,document.getElementById('restartButton'));
+    // restartButton.create();
 }
 
 function background(){
