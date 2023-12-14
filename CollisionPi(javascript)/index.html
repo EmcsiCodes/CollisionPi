@@ -32,6 +32,21 @@
             top: 600px;
         } /* stopButton */
         </style>
+    <style>
+        .selectpi {
+            position: absolute;
+            left: center;
+            top: 600px;
+            background-color: rgb(100, 100, 100);
+            height: 100px;
+            width: 100px;
+            text-align: center;
+            font-family: Consolas;
+            color: white;
+            text-shadow: 2px 2px 0px #000000;
+            font-size: 350%; 
+        }
+    </style>
 </head>
 <body>    
     <button 
@@ -44,11 +59,13 @@
         onclick = pause()>
         <img id = "pauseButton" src = "data/stopButton.png" width = 100 height = 100>
     </button>
+    <input class = "selectpi" id = "piNum" type="number" min="1" max="100" onchange = "reset()"/>
     <canvas id = "game" width = "1500" height = "700"/>
     <img id = "smallSquare" src = "data/smallSquare.jpg"/>
     <img id = "bigSquare" src = "data/bigSquare.jpeg"/>
     <img id = "border" src = "data/border1.png"/>
     <img id = "borderdown" src = "data/borderdown.png"/>
+    <img id = "pi" src = "data/pi.png"/>
     <audio id = "clack" src = "data/clack.wav"></audio>
     <script src = "index.js"></script>
 </body>

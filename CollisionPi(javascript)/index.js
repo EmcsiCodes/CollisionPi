@@ -1,8 +1,8 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let timeSteps = 100000;
-let digits = 7;
+let timeSteps = 10;
+let digits = 1;
 let countCollisions = 0;
 let gameStopped = false;
 let gameResseted = false;
@@ -46,32 +46,11 @@ class Block{
     }
 }
 
-// class Button{
-//     constructor(x,y,z,t,img){
-//         this.x = x;
-//         this.y = y;
-//         this.z = z;
-//         this.t = t;
-//         this.img = img;
-//     }
-//     create(){
-//         ctx.fillRect(this.x,this.y,this.z,this.t);
-//     }
-//     show(){
-//         ctx.drawImage(this.img,this.x,this.y);
-//     }
-// }
-
 let smallBlockImg;
 let bigBlockImg;
 let smallBlock;
 let bigBlock;
 let clack;
-// let restartButton;
-// let startButton;
-// let stopButton;
-// let upAButton;
-// let downAButton;
 const wall = 160;
 
 
@@ -94,13 +73,21 @@ function background(){
     ctx.drawImage(document.getElementById("borderdown"),160, canvas.height - 140);
     ctx.drawImage(document.getElementById("borderdown"),700, canvas.height - 140);
     ctx.drawImage(document.getElementById("borderdown"),1100, canvas.height - 140);
-    //restartButton.show();
+    ctx.drawImage(document.getElementById("pi"),280,590,80,80);
     ctx.fillStyle = 'white';
     ctx.font = "48px Consolas";
     let str = countCollisions.toString();
     str = "# Collisions:  " + str;
     let strlength = ctx.measureText(str).width;
     ctx.fillText(str, canvas.clientWidth/2 - strlength/2, 75);
+    str = "Set # of    's digits: ";
+    ctx.fillText(str,50,650);
+    str = "1" + "0".repeat(2*(digits - 1)%3) + ",000".repeat(2*(digits - 1)/3) + " kg";
+    strlength = ctx.measureText(str).width;
+    ctx.fillText(str,bigBlock.x + bigBlock.dim / 2 - strlength/2,bigBlock.y - 20);
+    str = "1 kg";
+    strlength = ctx.measureText(str).width;
+    ctx.fillText(str,smallBlock.x + smallBlock.dim/2 - strlength/2,smallBlock.y - 20);
 }
 
 function draw(){
@@ -144,6 +131,11 @@ function pause(){
 }
 
 function reset(){
+    digits = document.getElementById("piNum").value;
+    if(digits<1) digits = 1;
+    if(digits < 5) timeSteps = 10;
+    if(digits >= 6 && digits <= 7) timeSteps = 10000;
+    if(digits >= 8) timeSteps = 300000;
     preload();
     draw();
     gameStopped = false;
@@ -151,6 +143,7 @@ function reset(){
 }
 
 function main(){
+    if(digits<1) digits = 1;
     preload();
     setInterval(function(){
         if(gameStopped == false) draw();

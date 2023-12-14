@@ -12,7 +12,7 @@ gamePaused = True
 # Display
 width, height = 1600, 900
 WIN = pygame.display.set_mode((width, height))
-BG = pygame.transform.scale(pygame.image.load('background.jpg'), (width,height))
+BG = pygame.transform.scale(pygame.image.load('images/background.jpg'), (width,height))
 pygame.display.set_caption("Calculate Pi by Collision")
 font = pygame.font.SysFont("consolas", 50)
 textColor = "white"
