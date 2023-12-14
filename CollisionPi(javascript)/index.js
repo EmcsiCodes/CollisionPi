@@ -4,6 +4,8 @@ const ctx = canvas.getContext("2d");
 let timeSteps = 100000;
 let digits = 7;
 let countCollisions = 0;
+let gameStopped = false;
+let gameResseted = false;
 
 class Block{
     constructor(x,y,dim,m,v){
@@ -74,11 +76,13 @@ const wall = 160;
 
 
 function preload(){
-    smallBlock = new Block(550,660,100,1,0);
+    timeSteps = 100000;
+    smallBlock = new Block(550,460,100,1,0);
     smallBlockImg = document.getElementById("smallSquare");
-    bigBlock = new Block(1100,560,200,Math.pow(100,digits-1),-2/timeSteps);
+    bigBlock = new Block(1100,360,200,Math.pow(100,digits-1),-2/timeSteps);
     bigBlockImg = document.getElementById("bigSquare");
     clack = document.getElementById('clack');
+    countCollisions = 0;
     // restartButton = new Button(100,100,200,200,document.getElementById('restartButton'));
     // restartButton.create();
 }
@@ -86,7 +90,7 @@ function preload(){
 function background(){
     ctx.fillStyle = 'black';
     ctx.fillRect(0,0,canvas.clientWidth,canvas.height);
-    ctx.drawImage(document.getElementById("border"),120,100);
+    ctx.drawImage(document.getElementById("border"),120,60);
     ctx.drawImage(document.getElementById("borderdown"),160, canvas.height - 140);
     ctx.drawImage(document.getElementById("borderdown"),700, canvas.height - 140);
     ctx.drawImage(document.getElementById("borderdown"),1100, canvas.height - 140);
@@ -127,10 +131,30 @@ function draw(){
     console.log(countCollisions);
     //bigBlock.show();
 }
-function main(){
-    
+
+function pause(){
+    if(gameStopped == false) {
+        gameStopped = true;
+        document.getElementById("pauseButton").src="data/startButton.png";
+    }
+    else {
+        gameStopped = false;
+        document.getElementById("pauseButton").src="data/stopButton.png"
+    }
+}
+
+function reset(){
     preload();
-    setInterval(draw,1000/60);
+    draw();
+    gameStopped = false;
+    pause();
+}
+
+function main(){
+    preload();
+    setInterval(function(){
+        if(gameStopped == false) draw();
+    },1000/60);
 }
 
 main();
